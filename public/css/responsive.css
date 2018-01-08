@@ -1,0 +1,27 @@
+
+@media only screen and (max-width: 767px)  {
+	body{
+		overflow-x: hidden;
+	}
+	iframe {
+    	height: 56vh;
+    	min-height: auto;
+	}
+	#myCarousel{
+		position: relative;
+	    margin-bottom: 100px;
+	    top: 0;
+	}
+	#container{
+		margin: 20px auto;
+	}
+	.right-side-bottom{
+		padding-top: 110px;
+	}
+	.btn-align-right{
+		text-align: center;
+	}
+	.footer p{
+		text-align: center;
+	}
+}

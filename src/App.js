@@ -3,59 +3,63 @@ import $ from 'jquery'
 import moment from 'moment'
 // import logo from './logo.svg'
 import './App.css'
+const hostName = 'http://52.14.73.5:9000'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      FirstName: '',
-      ConnectionTitle: '',
-      CreatedAt: '',
-      SessionConnection: []
+      firstName: '',
+      connectionTitle: '',
+      createdAt: '',
+      sessionConnections: [],
+      comments: [],
+      likes: []
     }
   }
 
   componentWillMount() {
+    const { id } = this.props.match.params
     $.ajax({
-      url: "http://localhost:9000/api/v2/session/single/958",
+      url: `${hostName}/api/v2/session/single/${id}`,
       type: "GET",
       cache: false,
       success: (data) => {
         console.log(data.data[0])
         this.setState({
-          FirstName: data.data[0].User.FirstName,
-          ConnectionTitle: data.data[0].ConnectionTitle !== '' ? data.data[0].ConnectionTitle : data.data[0].SessionDescription,
-          CreatedAt: moment(data.data[0].created).format('HH hours'),
-          SessionConnection: data.data[0].SessionConnection
+          firstName: data.data[0].User.FirstName,
+          connectionTitle: data.data[0].ConnectionTitle !== '' ? data.data[0].ConnectionTitle : data.data[0].SessionDescription,
+          createdAt: moment(data.data[0].created).from(moment()),
+          sessionConnections: data.data[0].SessionConnection
         })
       }
     })
     $.ajax({
-      url: "http://localhost:9000/api/v2/user/comment/958",
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MTQ2LCJpYXQiOjE1MTQ3OTk0ODIsImV4cCI6MTU0NjM1NzA4Mn0.avGl_ouS7My73mSwDMjQ_RTkQOGD2iFTtdAyL7k37pA'
+      },
+      url: `${hostName}/api/v2/user/comment/${id}`,
       type: "GET",
       cache: false,
       success: (data) => {
-        console.log(data.data[0])
-        // this.setState({
-        //   FirstName: data.data[0].User.FirstName,
-        //   ConnectionTitle: data.data[0].ConnectionTitle !== '' ? data.data[0].ConnectionTitle : data.data[0].SessionDescription,
-        //   CreatedAt: moment(data.data[0].created).format('HH hours'),
-        //   SessionConnection: data.data[0].SessionConnection
-        // })
+        // console.log(data)
+        this.setState({
+          comments: data.data
+        })
       }
     })
     $.ajax({
-      url: "http://localhost:9000/api/v2/session/user/likes/958",
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MTQ2LCJpYXQiOjE1MTQ3OTk0ODIsImV4cCI6MTU0NjM1NzA4Mn0.avGl_ouS7My73mSwDMjQ_RTkQOGD2iFTtdAyL7k37pA'
+      },
+      url: `${hostName}/api/v2/session/user/likes/${id}`,
       type: "GET",
       cache: false,
       success: (data) => {
-        console.log(data.data[0])
-        // this.setState({
-        //   FirstName: data.data[0].User.FirstName,
-        //   ConnectionTitle: data.data[0].ConnectionTitle !== '' ? data.data[0].ConnectionTitle : data.data[0].SessionDescription,
-        //   CreatedAt: moment(data.data[0].created).format('HH hours'),
-        //   SessionConnection: data.data[0].SessionConnection
-        // })
+        // console.log(data)
+        this.setState({
+          likes: data.data
+        })
       }
     })
   }
@@ -126,8 +130,8 @@ class App extends Component {
                       </div>
                       <img src="https://pbs.twimg.com/profile_images/675012405047517184/Ye3-zMaW.jpg" className="photo"/>
                       <div className="comment-text">
-                        <p className="name">{this.state.FirstName}</p>
-                        <span className="time">{this.state.CreatedAt}</span>
+                        <p className="name">{this.state.firstName}</p>
+                        <span className="time">{this.state.createdAt}</span>
                         <h2>{this.state.ConnectionTitle}</h2>
                       </div>
                       </div>
@@ -135,23 +139,27 @@ class App extends Component {
                   <div className="comment-like">
                     <div className="row">
                       <div className="col-md-6 col-sm-6 col-xs-6 text-center">
-                        <p>6 Comment</p>
+                        <p>{this.state.comments.length} Comment</p>
                       </div>
                       <div className="col-md-6 col-sm-6 col-xs-6 text-center">
-                        <p>6 Likes</p>
+                        <p>{this.state.likes.length} Likes</p>
                       </div>
                     </div>
                   </div>
-                  <div className="comment">
-                      <img src="https://pbs.twimg.com/profile_images/506813173220257792/VcRwhqNo_400x400.jpeg" className="photo img-responsive"/>
-                      <div className="comment-text">
-                        <p className="name">thehound</p>
-                        <span className="time">3 hours ago</span>
-                        <p>Hate's as good a thing as any to keep a person going. Better than most.</p>
+                  {this.state.comments.map((comment, i) => {
+                    return(
+                      <div className="comment" key={i}>
+                        <img src="https://pbs.twimg.com/profile_images/506813173220257792/VcRwhqNo_400x400.jpeg" className="photo img-responsive"/>
+                        <div className="comment-text">
+                          <p className="name">{comment.User.FirstName}</p>
+                          <span className="time">{moment(comment.Created).from(moment())}</span>
+                          <p>{comment.Comment}</p>
+                        </div>
                       </div>
-                    </div>
+                    )
+                  })}
                    
-                    <div className="comment">
+{/*                    <div className="comment">
                       <img src="https://pbs.twimg.com/profile_images/675012405047517184/Ye3-zMaW.jpg" className="photo img-responsive"/>
                       <div className="dotts">
                         <span className="comments-count">
@@ -172,7 +180,7 @@ class App extends Component {
                         <span className="time">3 hours ago</span>
                         <p>Money buys a man's silence for a time. A bolt in the heart buys it forever.</p>
                       </div>
-                    </div>
+                    </div>*/}
                 </div>  
                 <div className="right-side-bottom">
                   <p>To Like and comment <b>get the app</b></p>

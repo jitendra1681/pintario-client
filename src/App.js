@@ -32,7 +32,8 @@ class App extends Component {
           firstName: _.get(data.data[0], 'User.FirstName', 'Fyndario'),
           connectionTitle: _.get(data.data[0], 'ConnectionTitle') !== '' ? _.get(data.data[0], 'ConnectionTitle', 'Fyndario') : _.get(data.data[0], 'SessionDescription', 'Fyndario'),
           createdAt: moment(_.get(data.data[0], 'created', moment())).from(moment()),
-          sessionConnections: _.get(data.data[0], 'SessionConnection', 'Fyndario')
+          sessionConnections: _.get(data.data[0], 'SessionConnection', 'Fyndario'),
+          profileImageUrl: _.get(data.data[0], 'User.ProfileImageURL', '/images/Fyndario_icon.png')
         })
       }
     })
@@ -87,38 +88,44 @@ class App extends Component {
             <div className="row">
               <div className="col-md-6 col-sm-6 col-xs-12">
                 <div className="left-slider">
-                  <div id="myCarousel" className="carousel slide" data-ride="carousel">
-                   
-                    <div className="carousel-inner">
-                        <div className="item active">
-                        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/F0tXuanr7a8" frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
-                        </div>
+                {this.state.sessionConnections.map((sessionConnection) => {
+                  return(
+                    sessionConnection.SessionParts.map((sessionPart, i) => {
+                      return(
+                      <div id="myCarousel" className="carousel slide" data-ride="carousel">
+                       
+                        <div className="carousel-inner">
+                            <div className="item active">
+                            <iframe width="100%" height="auto" src={sessionPart.URL} frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
+                            </div>
 
-                        <div className="item">
-                        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/F0tXuanr7a8" frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
-                        </div>
+                            {/*<div className="item">
+                            <iframe width="100%" height="auto" src="https://www.youtube.com/embed/F0tXuanr7a8" frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
+                            </div>
 
-                        <div className="item" >
-                       <iframe width="100%" height="auto" src="https://www.youtube.com/embed/F0tXuanr7a8" frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
+                            <div className="item" >
+                           <iframe width="100%" height="auto" src="https://www.youtube.com/embed/F0tXuanr7a8" frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
+                            </div>*/}
                         </div>
-                    </div>
-                    <div className="carousel-caption slider-bottom-box">
-                          <p>Session Description</p>
-                      </div> 
-                     <ol className="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                     </ol>
-                    <a className="left carousel-control" href="#myCarousel" data-slide="prev">
-                        <span className="glyphicon glyphicon-chevron-left"></span>
-                        <span className="sr-only">Previous</span>
-                    </a>
-                    <a className="right carousel-control" href="#myCarousel" data-slide="next">
-                        <span className="glyphicon glyphicon-chevron-right"></span>
-                        <span className="sr-only">Next</span>
-                    </a>
-                  </div>          
+                        <div className="carousel-caption slider-bottom-box">
+                              <p>{sessionConnection.SessionDescription}</p>
+                          </div> 
+                         <ol className="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to={i} className="active"></li>
+                            {/*<li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>*/}
+                         </ol>
+                        <a className="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span className="glyphicon glyphicon-chevron-left"></span>
+                            <span className="sr-only">Previous</span>
+                        </a>
+                        <a className="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span className="glyphicon glyphicon-chevron-right"></span>
+                            <span className="sr-only">Next</span>
+                        </a>
+                      </div>
+                    )})
+                  )})}
                 </div>
               </div>
               <div className="col-md-6 col-sm-6 col-xs-12">
@@ -130,7 +137,7 @@ class App extends Component {
                         <span className="dot"></span>
                         <span className="dot"></span>
                       </div>
-                      <img src="https://pbs.twimg.com/profile_images/675012405047517184/Ye3-zMaW.jpg" className="photo"/>
+                      <img src={this.state.profileImageUrl} className="photo"/>
                       <div className="comment-text">
                         <p className="name">{this.state.firstName}</p>
                         <span className="time">{this.state.createdAt}</span>
@@ -151,7 +158,7 @@ class App extends Component {
                   {this.state.comments.map((comment, i) => {
                     return(
                       <div className="comment" key={i}>
-                        <img src="https://pbs.twimg.com/profile_images/506813173220257792/VcRwhqNo_400x400.jpeg" className="photo img-responsive"/>
+                        <img src={_.get(comment, 'User.ProfileImageURL', '/images/Fyndario_icon.png')} className="photo img-responsive"/>
                         <div className="comment-text">
                           <p className="name">{comment.User.FirstName}</p>
                           <span className="time">{moment(comment.Created).from(moment())}</span>

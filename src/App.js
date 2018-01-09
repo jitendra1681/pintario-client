@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
 import moment from 'moment'
+import _ from 'lodash'
 // import logo from './logo.svg'
 import './App.css'
 const hostName = 'http://52.14.73.5:9000'
+// const hostName = 'http://localhost:9000'
 
 class App extends Component {
   constructor(props) {
@@ -27,10 +29,10 @@ class App extends Component {
       success: (data) => {
         console.log(data.data[0])
         this.setState({
-          firstName: data.data[0].User.FirstName,
-          connectionTitle: data.data[0].ConnectionTitle !== '' ? data.data[0].ConnectionTitle : data.data[0].SessionDescription,
-          createdAt: moment(data.data[0].created).from(moment()),
-          sessionConnections: data.data[0].SessionConnection
+          firstName: _.get(data.data[0], 'User.FirstName', 'Fyndario'),
+          connectionTitle: _.get(data.data[0], 'ConnectionTitle') !== '' ? _.get(data.data[0], 'ConnectionTitle', 'Fyndario') : _.get(data.data[0], 'SessionDescription', 'Fyndario'),
+          createdAt: moment(_.get(data.data[0], 'created', moment())).from(moment()),
+          sessionConnections: _.get(data.data[0], 'SessionConnection', 'Fyndario')
         })
       }
     })

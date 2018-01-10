@@ -4,8 +4,8 @@ import moment from 'moment'
 import _ from 'lodash'
 import './App.css'
 
-// const hostName = 'http://52.14.73.5:9000'
-const hostName = 'http://localhost:9000'
+const hostName = 'http://52.14.73.5:9000'
+// const hostName = 'http://localhost:9000'
 
 class App extends Component { 
   constructor(props) {

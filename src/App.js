@@ -4,10 +4,10 @@ import moment from 'moment'
 import _ from 'lodash'
 import './App.css'
 
-const hostName = 'http://52.14.73.5:9000'
-// const hostName = 'http://localhost:9000'
+// const hostName = 'http://52.14.73.5:9000'
+const hostName = 'http://localhost:9000'
 
-class App extends Component {
+class App extends Component { 
   constructor(props) {
     super(props)
     this.state = {
@@ -97,14 +97,31 @@ class App extends Component {
                   <div id="myCarousel" className="carousel slide" data-ride="carousel" >
                     <div className="carousel-inner">
                       {sessionConnections.map((sessionConnection, i) => {
+                        if (sessionConnection.ContentType !== 4) {
                         return(
                           <div className={i === 0 ? "item active" : "item"} key={i}>
-                            <iframe title={i} width="100%" height="auto" src={sessionConnection.URL} frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
+                            <div className="fram-box">
+                              <img className="img-responsive" src={sessionConnection.URL}/>
+                            </div>
                             <div className="carousel-caption slider-bottom-box">
                               <p>{sessionConnection.SessionDescription}</p>
                             </div> 
                           </div>
                         )
+                      } else {
+                        return(
+                          <div className={i === 0 ? "item active" : "item"} key={i}>
+                            <div className="fram-box">
+                              <video className="img-responsive" width="400" controls autoPlay>
+                                <source src={sessionConnection.URL} type="video/mp4"/>
+                              </video>
+                            </div>
+                            <div className="carousel-caption slider-bottom-box">
+                              <p>{sessionConnection.SessionDescription}</p>
+                            </div> 
+                          </div>
+                        )
+                      }
                       })}
                     </div>
                     <ol className="carousel-indicators">

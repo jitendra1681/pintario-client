@@ -57,9 +57,28 @@ header{
 }
 
 /* Slider Css::START */
-iframe{
-  height: 56vh;
+.fram-box{
     min-height: 688px;
+    white-space: nowrap;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;    
+    background-color: #505050;
+}
+.fram-box img{
+    max-width: 100%;
+    vertical-align: middle;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.helper {
+    display: inline-block;
+    vertical-align: middle;
 }
 .left-slider{
   position: relative;
@@ -102,7 +121,7 @@ iframe{
 .slider-bottom-box{
   left: auto;
   right: auto;
-  bottom: 6px;
+  bottom: 0px;
   color: #fff;
     padding: 15px 10px;
   width: 100%;

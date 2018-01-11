@@ -98,30 +98,30 @@ class App extends Component {
                     <div className="carousel-inner">
                       {sessionConnections.map((sessionConnection, i) => {
                         if (sessionConnection.ContentType !== 4) {
-                        return(
-                          <div className={i === 0 ? "item active" : "item"} key={i}>
-                            <div className="fram-box">
-                              <img className="img-responsive" src={sessionConnection.URL}/>
+                          return(
+                            <div className={i === 0 ? "item active" : "item"} key={i}>
+                              <div className="fram-box">
+                                <img className="img-responsive" src={sessionConnection.URL}/>
+                              </div>
+                              <div className="carousel-caption slider-bottom-box">
+                                <p>{sessionConnection.SessionDescription}</p>
+                              </div> 
                             </div>
-                            <div className="carousel-caption slider-bottom-box">
-                              <p>{sessionConnection.SessionDescription}</p>
-                            </div> 
-                          </div>
-                        )
-                      } else {
-                        return(
-                          <div className={i === 0 ? "item active" : "item"} key={i}>
-                            <div className="fram-box">
-                              <video className="img-responsive" width="400" controls autoPlay>
-                                <source src={sessionConnection.URL} type="video/mp4"/>
-                              </video>
+                          )
+                        } else {
+                          return(
+                            <div className={i === 0 ? "item active" : "item"} key={i}>
+                              <div className="fram-box">
+                                <video className="img-responsive" width="400" controls autoPlay>
+                                  <source src={sessionConnection.URL} type="video/mp4"/>
+                                </video>
+                              </div>
+                              <div className="carousel-caption slider-bottom-box">
+                                <p>{sessionConnection.SessionDescription}</p>
+                              </div> 
                             </div>
-                            <div className="carousel-caption slider-bottom-box">
-                              <p>{sessionConnection.SessionDescription}</p>
-                            </div> 
-                          </div>
-                        )
-                      }
+                          )
+                        }
                       })}
                     </div>
                     <ol className="carousel-indicators">

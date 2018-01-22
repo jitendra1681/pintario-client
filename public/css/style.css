@@ -1,18 +1,11 @@
-body{
-  margin: 0px;
-  padding: 0px;
-  font-size: 16px;
-  font-family: 'Montserrat', sans-serif !important;
-  background-color: #ebebeb;.
+.modal-header{
+  border-bottom: 0px solid #e5e5e5;
 }
-
-*{
-  padding: 0px;
-  margin: 0px;
+.close{
+  font-size: 34px;
 }
-
 .logo-img{
-  margin: 14px 0px;
+  margin:17px 0px;
 }
 
 header{
@@ -114,7 +107,7 @@ header{
 
 /* Right Side Section Css::START */
 .right-side{
-  padding: 15px 30px 0px 30px;
+  padding: 15px 30px 0px;
     height: 47vh;
     min-height: 530px;
 }
@@ -134,6 +127,9 @@ header{
 .right-side-bottom{
   text-align: center;
     padding: 70px 0 30px 0;
+}
+.right-side-bottom a{
+  color: #626A73;
 }
 /* Right Side Section Css::END */
 
@@ -168,8 +164,7 @@ header{
 
 /* comment-like Css::START */
 .comment-like {
-    border-top: 1px solid #c2c2c2;
-    border-bottom: 1px solid #c2c2c2;
+    border-bottom: 0px solid #ddd;
     width: 100%;
 }
 .comment-like p{
@@ -179,9 +174,16 @@ header{
 }
 .comment-like.nav-tabs>li {
     float: left;
-    margin-bottom: -1px;
+    margin-bottom: 0;
     width: 50%;
     text-align: center;
+      border-top: 1px solid #c2c2c2;
+    border-bottom: 1px solid #c2c2c2;
+}
+.comment-like.nav-tabs>li>a {
+    margin-right: 0;
+    border-radius:0;
+    border: 0px solid transparent;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
   border: 0px !important;
@@ -261,10 +263,10 @@ p {
   clear: both;
   }
 
-.comment:hover {
+/*.comment:hover {
   background: #eaeaea;
   border-radius: 5px;
-}
+}*/
 
 .comments-count{
   font-size: 12px;
@@ -303,3 +305,46 @@ footer{
   border-color: #fff; 
   color: #00b4ff;
 }
+.app-store {
+  padding: 28px;
+  text-align: center;
+}
+.google-play {
+  width: 240px;
+}
+.ios-store {
+  width: 200px;
+}
+.modal-body {
+  padding-left: 60px;
+  padding-top: 18px;
+}
+.modal {
+  top: 12% !important;
+}
+/*Media CSS*/
+@media (max-width: 414px){
+  .right-side{
+    padding: 15px 10px 0px;
+  }
+  .comment{
+    padding: 0 0 0px 70px;
+    text-align: center;
+  }
+  .photo {
+      height: 60px;
+      border-radius: 100%;
+       float: none; 
+      margin-right: 20px;
+      max-width: 60px;
+      display: inline-block;
+  }
+  .comment-text{
+    float: none;
+    width: 70%;
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+/*Media CSS*/

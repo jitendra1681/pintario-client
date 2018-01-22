@@ -84,7 +84,7 @@ class App extends Component {
                   <a href="#"><img alt="" src="images/logo.png" className="img-responsive logo-img"/></a>
                 </div> 
                 <div className="col-md-3 pull-right text-right">
-                  <button className="btn btn-default get-the-app">Get the app</button>
+                  <button className="btn btn-default get-the-app" type="button" data-toggle="modal" data-target="#exampleModal">Get the app</button>
                 </div>
               </div>
             </div>
@@ -116,9 +116,9 @@ class App extends Component {
                                   <source src={sessionConnection.URL} type="video/mp4"/>
                                 </video>
                               </div>
-                              <div className="carousel-caption slider-bottom-box">
+                              {/*<div className="carousel-caption slider-bottom-box">
                                 <p>{sessionConnection.SessionDescription}</p>
-                              </div> 
+                              </div>*/} 
                             </div>
                           )
                         }
@@ -147,11 +147,6 @@ class App extends Component {
                   <div className="right-side-inner">
                     <div className="profile-sec">
                       <div className="comment">
-                        <div className="dotts">
-                          <span className="dot"></span>
-                          <span className="dot"></span>
-                          <span className="dot"></span>
-                        </div>
                           <img alt="" src={profileImageUrl !== "" ? profileImageUrl : '/images/Fyndario_icon.png'} className="photo"/>
                           <div className="comment-text">
                             <p className="name">{firstName}</p>
@@ -163,12 +158,12 @@ class App extends Component {
                     <ul className="nav nav-tabs comment-like" role="tablist">
                         <li role="presentation" className="active">
                           <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-                            <p>{comments.length} {comments.length > 1 ? 'Comments': 'Comment'}</p>
+                            <p>{comments.length} {comments.length === 1 ? 'Comment': 'Comments'}</p>
                           </a>
                       </li>
                         <li role="presentation">
                           <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
-                            <p>{likes.length} {likes.length > 1 ? 'Likes': 'Like'}</p>
+                            <p>{likes.length} {likes.length === 1 ? 'Like': 'Likes'}</p>
                           </a>
                         </li>                  
                     </ul>
@@ -206,20 +201,41 @@ class App extends Component {
                   </div>
                 </div>  
                 <div className="right-side-bottom">
-                  <p>To Like and comment <b>get the app</b></p>
+                  <p>To Like and comment <b><a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">get the app</a></b></p>
                 </div>
               </div>
             </div>            
             </div>
-
-          <footer className="footer"> 
+            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div className="modal-body">
+                    <h2><strong>Experience the best version of Fyndario by getting the app.</strong></h2>
+                  </div>
+                  <div className="app-store">
+                    <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.googleassistant&hl=en">
+                      <img src="images/google-play-badge.png" className="google-play" alt=""/>
+                    </a>
+                    <a href="https://itunes.apple.com/us/app/fyndario/id1216195721?mt=8">
+                      <img src="images/download-on-the-app-store.png" className="ios-store" alt=""/>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <footer className="footer navbar-fixed-bottom"> 
             <div className="container" style={{maxWidth: '880px', width: '100%'}}>
               <div className="row">
                 <div className="col-md-6 col-sm-6 col-xs-12 pull-left">
                   <p>Get the app to follow people who inspire you</p>
                 </div>
                 <div className="col-md-3 col-sm-6 col-xs-12 pull-right btn-align-right">
-                  <button className="btn btn-default get-the-app">Get the app</button>
+                  <button className="btn btn-default get-the-app" type="button" data-toggle="modal" data-target="#exampleModal">Get the app</button>
                 </div>
               </div>
             </div>

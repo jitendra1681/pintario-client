@@ -81,6 +81,9 @@ header{
     width: 100%;
     top: -20px;
 }
+.carousel-indicators {
+  z-index: 0;
+}
 .carousel-indicators li{
   border-color: #b9b9b9;
 }
@@ -346,5 +349,11 @@ footer{
     display: inline-block;
     vertical-align: middle;
   }
+}
+.narcissus_x3xwbs {
+  display: none !important;
+}
+.narcissus_17w311v {
+  padding: 0px !important;
 }
 /*Media CSS*/

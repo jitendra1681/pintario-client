@@ -3,6 +3,8 @@ import $ from 'jquery'
 import moment from 'moment'
 import _ from 'lodash'
 import './App.css'
+import { ModalContainer, ModalDialog } from 'react-modal-dialog'
+import TransitionModal from './transition-modal'
 
 const hostName = 'http://52.14.73.5:9000'
 // const hostName = 'http://localhost:9000'
@@ -16,12 +18,16 @@ class App extends Component {
       createdAt: '',
       sessionConnections: [],
       comments: [],
-      likes: []
+      likes: [],
+      isShowingModal: false
     }
+    this.handleClose = this.handleClose.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
   componentWillMount() {
     const { id } = this.props.match.params
-    const myArray = []
+    const firstImages = []
+    const allImages = []
     $.ajax({
       url: `${hostName}/api/v2/session/single/${id}`,
       type: "GET",
@@ -31,15 +37,23 @@ class App extends Component {
           data.data[0].SessionConnection.map((sessionConnection) => {
             sessionConnection.SessionParts.map((sessionPart) => {
               sessionPart.SessionDescription = sessionConnection.SessionDescription
-              myArray.push(sessionPart)
+              allImages.push(sessionPart)
             })
+          })
+          data.data[0].SessionConnection.map((sessionConnection) => {
+            // sessionConnection.SessionParts.map((sessionPart) => {
+            //   sessionPart.SessionDescription = sessionConnection.SessionDescription
+            //   allImages.push(sessionPart)
+            // })
+            firstImages.push(sessionConnection.SessionParts[0])
           })
           this.setState({
             firstName: _.get(data.data[0], 'User.FirstName', 'Fyndario'),
             connectionTitle: _.get(data.data[0], 'ConnectionTitle') !== '' ? _.get(data.data[0], 'ConnectionTitle', 'Fyndario') : _.get(data.data[0], 'SessionDescription', 'Fyndario'),
             createdAt: moment(_.get(data.data[0], 'created', moment())).from(moment()),
-            sessionConnections: myArray,
-            profileImageUrl: _.get(data.data[0], 'User.ProfileImageURL', '/images/Fyndario_icon.png')
+            sessionConnections: firstImages,
+            profileImageUrl: _.get(data.data[0], 'User.ProfileImageURL', '/images/Fyndario_icon.png'),
+            allImages
           })
         }
       }
@@ -72,6 +86,14 @@ class App extends Component {
     })
   }
 
+  handleClick() {
+    this.setState({ isShowingModal: true })
+  }
+
+  handleClose() {
+    this.setState({ isShowingModal: false })
+  }
+
   render() {
     const { likes, comments, firstName, profileImageUrl, sessionConnections, createdAt, connectionTitle} = this.state
     return (
@@ -94,8 +116,8 @@ class App extends Component {
             <div className="row">
               <div className="col-md-6 col-sm-6 col-xs-12">
                 <div className="left-slider">
-                  <div id="myCarousel" className="carousel slide" data-ride="carousel" >
-                    <div className="carousel-inner">
+                  <div id="myCarousel" className="carousel slide" data-ride="carousel">
+                    <div className="carousel-inner" onClick={this.handleClick}>
                       {sessionConnections.map((sessionConnection, i) => {
                         if (sessionConnection.ContentType !== 4) {
                           return(
@@ -206,6 +228,14 @@ class App extends Component {
               </div>
             </div>            
             </div>
+            {
+              this.state.isShowingModal &&
+              <ModalContainer onClose={this.handleClose}>
+                <ModalDialog onClose={this.handleClose}>
+                  <TransitionModal images={this.state.allImages}/>
+                </ModalDialog>
+              </ModalContainer>
+            }
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div className="modal-dialog" role="document">
                 <div className="modal-content">

@@ -314,6 +314,7 @@ footer{
 }
 .google-play {
   width: 240px;
+  margin-left: -4%;
 }
 .ios-store {
   width: 200px;

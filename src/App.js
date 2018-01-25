@@ -239,12 +239,10 @@ class App extends Component {
             <div className="modal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
-                  <div className="modal-header">
+                  <div className="modal-body">
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                  </div>
-                  <div className="modal-body">
                     <h2><strong>Experience the best version of Fyndario by getting the app.</strong></h2>
                   </div>
                   <div className="app-store">

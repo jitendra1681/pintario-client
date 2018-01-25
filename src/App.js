@@ -9,7 +9,7 @@ import TransitionModal from './transition-modal'
 const hostName = 'http://52.14.73.5:9000'
 // const hostName = 'http://localhost:9000'
 
-class App extends Component { 
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -29,7 +29,7 @@ class App extends Component {
     const firstImages = []
     const allImages = []
     $.ajax({
-      url: `${hostName}/api/v2/session/single/${id}`,
+      url: `${hostName}/api/v3/session/single/${id}`,
       type: "GET",
       cache: false,
       success: (data) => {
@@ -62,7 +62,7 @@ class App extends Component {
       headers: {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MTQ2LCJpYXQiOjE1MTQ3OTk0ODIsImV4cCI6MTU0NjM1NzA4Mn0.avGl_ouS7My73mSwDMjQ_RTkQOGD2iFTtdAyL7k37pA'
       },
-      url: `${hostName}/api/v2/user/comment/${id}`,
+      url: `${hostName}/api/v3/user/comment/${id}`,
       type: "GET",
       cache: false,
       success: (data) => {
@@ -75,7 +75,7 @@ class App extends Component {
       headers: {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MTQ2LCJpYXQiOjE1MTQ3OTk0ODIsImV4cCI6MTU0NjM1NzA4Mn0.avGl_ouS7My73mSwDMjQ_RTkQOGD2iFTtdAyL7k37pA'
       },
-      url: `${hostName}/api/v2/session/user/likes/${id}`,
+      url: `${hostName}/api/v3/session/user/likes/${id}`,
       type: "GET",
       cache: false,
       success: (data) => {
@@ -99,20 +99,20 @@ class App extends Component {
     return (
       <div className="">
         <div className="main-wrapper">
-          <header className="header"> 
+          <header className="header">
             <div className="container bg-white" style={{maxWidth: '880px', width: '100%'}}>
               <div className="row">
                 <div className="col-md-2 pull-left">
                   <a href="#"><img alt="" src="images/logo.png" className="img-responsive logo-img"/></a>
-                </div> 
+                </div>
                 <div className="col-md-3 pull-right text-right">
                   <button className="btn btn-default get-the-app" type="button" data-toggle="modal" data-target="#exampleModal">Get the app</button>
                 </div>
               </div>
             </div>
-          </header> 
+          </header>
 
-           <div id="container"> 
+           <div id="container">
             <div className="row">
               <div className="col-md-6 col-sm-6 col-xs-12">
                 <div className="left-slider">
@@ -127,7 +127,7 @@ class App extends Component {
                               </div>
                               <div className="carousel-caption slider-bottom-box">
                                 <p>{sessionConnection.SessionDescription}</p>
-                              </div> 
+                              </div>
                             </div>
                           )
                         } else {
@@ -140,7 +140,7 @@ class App extends Component {
                               </div>
                               {/*<div className="carousel-caption slider-bottom-box">
                                 <p>{sessionConnection.SessionDescription}</p>
-                              </div>*/} 
+                              </div>*/}
                             </div>
                           )
                         }
@@ -187,9 +187,9 @@ class App extends Component {
                           <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
                             <p>{likes.length} {likes.length === 1 ? 'Like': 'Likes'}</p>
                           </a>
-                        </li>                  
+                        </li>
                     </ul>
-                    <div className="comment-section">               
+                    <div className="comment-section">
                         <div className="tab-content">
                           <div role="tabpanel" className="tab-pane active" id="home">
                           {comments.map((comment, i) => {
@@ -221,12 +221,12 @@ class App extends Component {
                         </div>
                     </div>
                   </div>
-                </div>  
+                </div>
                 <div className="right-side-bottom">
                   <p>To Like and comment <b><a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">get the app</a></b></p>
                 </div>
               </div>
-            </div>            
+            </div>
             </div>
             {
               this.state.isShowingModal &&
@@ -236,7 +236,7 @@ class App extends Component {
                 </ModalDialog>
               </ModalContainer>
             }
-            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -258,7 +258,7 @@ class App extends Component {
                 </div>
               </div>
             </div>
-          <footer className="footer navbar-fixed-bottom"> 
+          <footer className="footer navbar-fixed-bottom">
             <div className="container" style={{maxWidth: '880px', width: '100%'}}>
               <div className="row">
                 <div className="col-md-6 col-sm-6 col-xs-12 pull-left">

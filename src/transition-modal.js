@@ -59,7 +59,7 @@ class App extends Component {
     const array = []
     images.map((image) => {
       if (image.ContentType !== 4) {
-        array.push(<img src={image.URL} style={ childStyle } />)
+        array.push(<img src={image.URL} style={ childStyle } alt={image.sessionTransition}/>)
       } else {
         array.push(<video controls autoPlay>
           <source src={image.URL} type="video/mp4"/>
@@ -74,10 +74,9 @@ class App extends Component {
     const index = this.state.clicked % images.length
     const comp = React.cloneElement( images[ index ], { key: index } )
     return (
-      <div className="">
-        {/*<button onClick={ () => this.setState( { clicked: this.state.clicked + 1 } ) }>Animate</button>*/}
+      <div className="transition">
         <ReactTransitions
-          transition="rotate-cube-left-out-rotate-cube-left-in"
+          transition={comp.props.alt === 'rotate' ? 'rotate-cube-left-out-rotate-cube-left-in' : 'move-to-left-move-from-right'}
           width={ 600 }
           height={ 300 }
           onClick={ () => this.setState( { clicked: this.state.clicked + 1 } ) }

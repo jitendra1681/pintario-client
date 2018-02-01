@@ -19,7 +19,8 @@ class App extends Component {
       sessionConnections: [],
       comments: [],
       likes: [],
-      isShowingModal: false
+      isShowingModal: false,
+      allConnections: []
     }
     this.handleClose = this.handleClose.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -37,14 +38,11 @@ class App extends Component {
           data.data[0].SessionConnection.map((sessionConnection) => {
             sessionConnection.SessionParts.map((sessionPart) => {
               sessionPart.SessionDescription = sessionConnection.SessionDescription
+              sessionConnection.SessionParts[0].sessionTransition = 'rotate'
               allImages.push(sessionPart)
             })
           })
           data.data[0].SessionConnection.map((sessionConnection) => {
-            // sessionConnection.SessionParts.map((sessionPart) => {
-            //   sessionPart.SessionDescription = sessionConnection.SessionDescription
-            //   allImages.push(sessionPart)
-            // })
             firstImages.push(sessionConnection.SessionParts[0])
           })
           this.setState({
@@ -53,7 +51,8 @@ class App extends Component {
             createdAt: moment(_.get(data.data[0], 'created', moment())).from(moment()),
             sessionConnections: firstImages,
             profileImageUrl: _.get(data.data[0], 'User.ProfileImageURL', '/images/Fyndario_icon.png'),
-            allImages
+            allImages,
+            allConnections: data.data[0].SessionConnection
           })
         }
       }
@@ -95,7 +94,7 @@ class App extends Component {
   }
 
   render() {
-    const { likes, comments, firstName, profileImageUrl, sessionConnections, createdAt, connectionTitle} = this.state
+    const { likes, comments, firstName, profileImageUrl, sessionConnections, createdAt, connectionTitle, allImages, allConnections } = this.state
     return (
       <div className="">
         <div className="main-wrapper">
@@ -138,29 +137,30 @@ class App extends Component {
                                   <source src={sessionConnection.URL} type="video/mp4"/>
                                 </video>
                               </div>
-                              {/*<div className="carousel-caption slider-bottom-box">
-                                <p>{sessionConnection.SessionDescription}</p>
-                              </div>*/}
                             </div>
                           )
                         }
                       })}
                     </div>
-                    <ol className="carousel-indicators">
-                      {sessionConnections.map((sessionConnection, i) => {
-                        return(
-                          <li key={i} data-target="#myCarousel" data-slide-to={i} className={i === 0 ? 'active' : ''}></li>
-                        )
-                      })}
-                    </ol>
-                    <a className="left carousel-control" href="#myCarousel" data-slide="prev">
-                      <span className="glyphicon glyphicon-chevron-left"></span>
-                      <span className="sr-only">Previous</span>
-                    </a>
-                    <a className="right carousel-control" href="#myCarousel" data-slide="next">
-                      <span className="glyphicon glyphicon-chevron-right"></span>
-                      <span className="sr-only">Next</span>
-                    </a>
+                    <div className={sessionConnections.length > 1 ? '' : 'display-none'}>
+                      <ol className="carousel-indicators">
+                        {sessionConnections.map((sessionConnection, i) => {
+                          return(
+                            <li key={i} data-target="#myCarousel" data-slide-to={i} className={i === 0 ? 'active' : ''}></li>
+                          )
+                        })}
+                      </ol>
+                    </div>
+                    {sessionConnections.length > 1 && <div>
+                      <a className="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span className="glyphicon glyphicon-chevron-left"></span>
+                        <span className="sr-only">Previous</span>
+                      </a>
+                      <a className="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span className="glyphicon glyphicon-chevron-right"></span>
+                        <span className="sr-only">Next</span>
+                      </a>
+                    </div>}
                   </div>
                 </div>
               </div>
@@ -232,7 +232,7 @@ class App extends Component {
               this.state.isShowingModal &&
               <ModalContainer onClose={this.handleClose}>
                 <ModalDialog onClose={this.handleClose}>
-                  <TransitionModal images={this.state.allImages}/>
+                  <TransitionModal images={allImages} connections={allConnections} closeModal={this.handleClose}/>
                 </ModalDialog>
               </ModalContainer>
             }

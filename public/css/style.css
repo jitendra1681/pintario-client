@@ -326,6 +326,30 @@ footer{
 .modal {
   top: 12% !important;
 }
+.light-box-section{
+  position: relative;
+}
+.light-box-section img{
+  height: 100vh !important;
+}
+.next-btn-slide{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 50%;
+  height: 100%;
+  cursor: pointer;
+  background: transparent;
+}
+.previous-btn-slide{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 50%;
+  height: 100%;
+  cursor: pointer;
+  background: transparent;
+}
 /*Media CSS*/
 @media (max-width: 414px){
   .right-side{

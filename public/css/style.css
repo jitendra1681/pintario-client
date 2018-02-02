@@ -376,9 +376,21 @@ footer{
     vertical-align: middle;
   }
 }
+.align-right {
+  position: absolute;
+  text-align: right;
+  width: 98%;
+  top: 5px;
+  color: #fff;
+  content: '\00d7';
+}
+.fa-times:before {
+  content: '\00d7';
+}
 .narcissus_x3xwbs {
-  /*display: none !important;*/
-  left: 425px !important;
+  display: none !important;
+/*  left: 360px !important;
+  z-index: 1;*/
 }
 .narcissus_17w311v {
   padding: 0px !important;

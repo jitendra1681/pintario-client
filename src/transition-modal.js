@@ -27,9 +27,14 @@ class App extends Component {
     images[images.length-1].last = 'last'
     images.map((image) => {
       if (image.ContentType !== 4) {
-        array.push(<img src={image.URL} style={ childStyle } alt={image.sessionTransition} alt2={image.last}/>)
+        array.push(
+          <span alt={image.sessionTransition} alt2={image.last}>
+            <i className="align-right fa fa-times fa-2x" onClick={() => this.props.closeModal()}/>
+            <img src={image.URL} style={ childStyle }/>
+          </span>
+        )
       } else {
-        array.push(<video controls autoPlay>
+        array.push(<video controls autoPlay alt={image.sessionTransition} alt2={image.last}>
           <source src={image.URL} type="video/mp4"/>
         </video>)
       }

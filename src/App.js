@@ -142,7 +142,7 @@ class App extends Component {
                         }
                       })}
                     </div>
-                    <div className={sessionConnections.length > 1 ? '' : 'display-none'}>
+                    <div className={sessionConnections.length > 1 ? 'dots-box' : 'display-none'}>
                       <ol className="carousel-indicators">
                         {sessionConnections.map((sessionConnection, i) => {
                           return(

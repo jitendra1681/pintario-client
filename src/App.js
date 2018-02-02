@@ -87,6 +87,9 @@ class App extends Component {
 
   handleClick() {
     this.setState({ isShowingModal: true })
+    setTimeout(()=>{
+      $(".narcissus_17w311v").parent().css({ background: "#262626" })
+    }, 100)
   }
 
   handleClose() {

@@ -19,8 +19,7 @@ class App extends Component {
       sessionConnections: [],
       comments: [],
       likes: [],
-      isShowingModal: false,
-      allConnections: []
+      isShowingModal: false
     }
     this.handleClose = this.handleClose.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -51,8 +50,7 @@ class App extends Component {
             createdAt: moment(_.get(data.data[0], 'created', moment())).from(moment()),
             sessionConnections: firstImages,
             profileImageUrl: _.get(data.data[0], 'User.ProfileImageURL', '/images/Fyndario_icon.png'),
-            allImages,
-            allConnections: data.data[0].SessionConnection
+            allImages
           })
         }
       }
@@ -97,7 +95,7 @@ class App extends Component {
   }
 
   render() {
-    const { likes, comments, firstName, profileImageUrl, sessionConnections, createdAt, connectionTitle, allImages, allConnections } = this.state
+    const { likes, comments, firstName, profileImageUrl, sessionConnections, createdAt, connectionTitle, allImages } = this.state
     return (
       <div className="">
         <div className="main-wrapper">
@@ -113,7 +111,6 @@ class App extends Component {
               </div>
             </div>
           </header>
-
            <div id="container">
             <div className="row">
               <div className="col-md-6 col-sm-6 col-xs-12">
@@ -235,7 +232,7 @@ class App extends Component {
               this.state.isShowingModal &&
               <ModalContainer onClose={this.handleClose}>
                 <ModalDialog onClose={this.handleClose}>
-                  <TransitionModal images={allImages} connections={allConnections} closeModal={this.handleClose}/>
+                  <TransitionModal images={allImages} closeModal={this.handleClose}/>
                 </ModalDialog>
               </ModalContainer>
             }

@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import $ from 'jquery'
-import moment from 'moment'
-import _ from 'lodash'
 import './App.css'
 import ReactTransitions from 'react-transitions'
 import 'react-transitions/dist/animations.css'
@@ -34,13 +31,17 @@ class App extends Component {
           </span>
         )
       } else {
-        array.push(<video controls autoPlay alt={image.sessionTransition} alt2={image.last}>
-          <source src={image.URL} type="video/mp4"/>
-        </video>)
+        array.push(<span alt={image.sessionTransition} alt2={image.last}>
+          <i className="align-right fa fa-times fa-2x" onClick={() => this.props.closeModal()}/>
+            <video style ={{ margin: '13%', float: 'right' }} controls autoPlay>
+            <source src={image.URL} type="video/mp4"/>
+          </video>
+        </span>)
       }
     })
     this.setState({ images: array })
   }
+
   onTransitionClick(last) {
     if (last === 'last') {
       this.props.closeModal()
@@ -48,6 +49,7 @@ class App extends Component {
       this.setState({ clicked: this.state.clicked + 1 })
     }
   }
+
   render() {
     const { clicked, images } = this.state
     const index = this.state.clicked % images.length
